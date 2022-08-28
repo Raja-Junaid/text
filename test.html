@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speech to Text</title>
+    <link rel="stylesheet" href="test.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <textarea name=" " class="text" cols="30" rows="10"></textarea>
+      <button class="btn">
+        <i class="fa fa-microphone" aria-hidden="true"></i>
+      </button>
+    </main>
+
+    <script>
+      var btn = document.querySelector(".btn");
+      btn.addEventListener("click", (ea) => {
+        btn.classList.add("fade");
+
+        let recognition = new webkitSpeechRecognition();
+        recognition.lang = "en-GB";
+        recognition.addEventListener("result", (e) => {
+          document.querySelector(".text").value = e.results[0][0].transcript;
+          btn.classList.remove("fade");
+        });
+        recognition.start();
+      });
+    </script>
+  </body>
+</html>
